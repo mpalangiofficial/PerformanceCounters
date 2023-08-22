@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "957bb666-b64a-4715-bc94-6695126ceb79": {
+      "ProjectGuid": "957bb666-b64a-4715-bc94-6695126ceb79",
+      "DisplayName": "PerformanceCounter_sample",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

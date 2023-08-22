@@ -1,0 +1,8 @@
+D:\Projects\Practices\PerformanceCounter_sample\PerformanceCounter_sample\bin\Debug\PerformanceCounter_sample.exe.config
+D:\Projects\Practices\PerformanceCounter_sample\PerformanceCounter_sample\bin\Debug\PerformanceCounter_sample.exe
+D:\Projects\Practices\PerformanceCounter_sample\PerformanceCounter_sample\bin\Debug\PerformanceCounter_sample.pdb
+D:\Projects\Practices\PerformanceCounter_sample\PerformanceCounter_sample\obj\Debug\PerformanceCounter_sample.csproj.AssemblyReference.cache
+D:\Projects\Practices\PerformanceCounter_sample\PerformanceCounter_sample\obj\Debug\PerformanceCounter_sample.csproj.SuggestedBindingRedirects.cache
+D:\Projects\Practices\PerformanceCounter_sample\PerformanceCounter_sample\obj\Debug\PerformanceCounter_sample.csproj.CoreCompileInputs.cache
+D:\Projects\Practices\PerformanceCounter_sample\PerformanceCounter_sample\obj\Debug\PerformanceCounter_sample.exe
+D:\Projects\Practices\PerformanceCounter_sample\PerformanceCounter_sample\obj\Debug\PerformanceCounter_sample.pdb
