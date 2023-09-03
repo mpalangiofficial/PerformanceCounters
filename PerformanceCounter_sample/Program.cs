@@ -21,6 +21,21 @@ namespace PerformanceCounter_sample
             PerformanceCounterCategory category = new PerformanceCounterCategory("Process");
             PerformanceCounter cpuHpiRunCounter = new PerformanceCounter("Process", "% Processor Time",
                 processName,true);
+
+            PerformanceCounterCategory performanceCounterCategory = new PerformanceCounterCategory("Network Interface");
+            string instance = performanceCounterCategory.GetInstanceNames()[0]; // 1st NIC !
+            PerformanceCounter performanceCounterSent = new PerformanceCounter("Network Interface", "Bytes Sent/sec", instance);
+            PerformanceCounter performanceCounterReceived = new PerformanceCounter("Network Interface", "Bytes Received/sec", instance);
+            PerformanceCounter performanceCounterSentProcess = new PerformanceCounter("Network Interface", "Bytes Sent/sec", instance);
+            performanceCounterSentProcess.InstanceName = processName;
+            PerformanceCounter performanceCounterReceivedProcess = new PerformanceCounter("Network Interface", "Bytes Received/sec", instance);
+            performanceCounterReceivedProcess.InstanceName = processName;
+
+            var bytesSent = new PerformanceCounter("Process", "IO Data Bytes/sec", processName);
+            var bytesReceived = new PerformanceCounter("Process", "IO Data Bytes/sec", processName);
+            //for (int i = 0; i < 10; i++)
+            //{
+            //}
             //string[] processes = category.GetInstanceNames();
             //Console.WriteLine(string.Join(",", processes));
 
@@ -43,10 +58,15 @@ namespace PerformanceCounter_sample
             {
                 Console.WriteLine(new string(separatorChar, separatorLength));
 
+                Console.WriteLine("bytes sent: {0}k\tbytes received: {1}k", performanceCounterSent.NextValue() / 1024, performanceCounterReceived.NextValue() / 1024);
+                Console.WriteLine("process->bytes sent: {0}k\tbytes received: {1}k", bytesSent.NextValue() / 1024, bytesReceived.NextValue() / 1024);
+
                 Console.WriteLine($"cpu usage:{cpuCounter.NextValue()}");
 
 
                 Console.WriteLine($"cpu usage of process({processName}):{cpuHpiRunCounter.NextValue()}");
+
+                Console.WriteLine("bytes sent: {0}k\tbytes received: {1}k", performanceCounterSent.NextValue() / 1024, performanceCounterReceived.NextValue() / 1024);
 
                 Console.WriteLine(new string(separatorChar, separatorLength)); Console.WriteLine();
 
