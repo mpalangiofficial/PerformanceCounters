@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PerformanceCounter_sample
@@ -16,11 +17,11 @@ namespace PerformanceCounter_sample
             char separatorChar = '-';
             PerformanceCounter cpuCounter =
                 new PerformanceCounter("Processor", "% Processor Time", "_Total");
-            
-            string processName = Process.GetCurrentProcess().ProcessName;
+            var process = Process.GetCurrentProcess();
+            string processName = process.ProcessName;
             PerformanceCounterCategory category = new PerformanceCounterCategory("Process");
             PerformanceCounter cpuHpiRunCounter = new PerformanceCounter("Process", "% Processor Time",
-                processName,true);
+                processName, true);
 
             PerformanceCounterCategory performanceCounterCategory = new PerformanceCounterCategory("Network Interface");
             string instance = performanceCounterCategory.GetInstanceNames()[0]; // 1st NIC !
@@ -44,18 +45,32 @@ namespace PerformanceCounter_sample
             //Console.WriteLine(processes.Any(p=>p==processName));
             Task.Run(() =>
             {
+                Thread.CurrentThread.Name = "Calc_Thread";
+                var list = new List<double>();
+                var synchronizedList = new SynchronizedCollection<double>(list);
                 while (true)
                 {
                     // Perform some repetitive calculations to keep CPU busy
                     for (int i = 0; i < int.MaxValue; i++)
                     {
+
                         // Dummy calculation
-                        Math.Sqrt(i);
+                        try
+                        {
+                            Math.Sqrt(i);
+                            //synchronizedList.Add(Math.Sqrt(i));
+                        }
+                        catch (Exception ex)
+                        {
+
+                            // Console.WriteLine(ex.Message);
+                        }
                     }
                 }
             });
             while (canceltoken != "e")
             {
+                Console.Clear();
                 Console.WriteLine(new string(separatorChar, separatorLength));
 
                 Console.WriteLine("bytes sent: {0}k\tbytes received: {1}k", performanceCounterSent.NextValue() / 1024, performanceCounterReceived.NextValue() / 1024);
@@ -70,10 +85,11 @@ namespace PerformanceCounter_sample
 
                 Console.WriteLine(new string(separatorChar, separatorLength)); Console.WriteLine();
 
-
+                //process
 
                 Console.WriteLine("for end enter(e) and for continu press any key except(e)");
                 canceltoken = Console.ReadLine();
+
             }
 
         }
